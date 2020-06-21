@@ -1,0 +1,31 @@
+
+<div style="margin: 1%">
+  <h1>Chirp Title: {{chirp.title}}</h1>
+  <h2>Chirp Type: {{chirp.type}}</h2>
+  <h2>Original Language: {{this.chirpServe.getLanguage(chirp.fromLanguage)}}</h2>
+  <h2>Translated Language: {{this.chirpServe.getLanguage(chirp.toLanguage)}}</h2>
+  <mat-card>
+    <mat-card-subtitle>Date added: {{chirp.date}}</mat-card-subtitle>
+    <div *ngFor="let phrase of chirp.phrases; index as i">
+      <h4>Original phrase:</h4> "{{phrase.original}}"
+
+      <h4>Translated phrase:</h4> "{{phrase.translated}}"
+      <br>
+      <button mat-raised-button color='accent' style="margin-bottom: 15px;" (click)="removePhrase(i)">Remove</button>
+      <mat-divider></mat-divider>
+    </div>
+    <mat-form-field style = "width:100%">
+      <mat-card-content>
+        <textarea matInput placeholder="Notes" style="width:100%" [(ngModel)]="chirp.notes"></textarea>
+      </mat-card-content>
+    </mat-form-field>
+
+    <mat-card-actions style="padding-left: 1%">
+      <button mat-raised-button (click)="updateChirp()">Save</button>
+      <button mat-raised-button (click)="removeChirp()">Remove</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <button mat-fab class = float (click)="addPhrase()">+</button>
+
+</div>

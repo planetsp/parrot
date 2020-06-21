@@ -1,0 +1,65 @@
+
+<h1>Add new Chirp</h1>
+
+<mat-card >
+  <mat-card-subtitle>{{chirp.date}}</mat-card-subtitle>
+  <div style = "margin: 1%">
+    <mat-form-field>
+      <input matInput [(ngModel)]="chirp.title" placeholder = "Title">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Document Type</mat-label>
+      <mat-select [(value)]="chirp.type">
+        <mat-option value = "Book">Book</mat-option>
+        <mat-option value = "Article">Article</mat-option>
+        <mat-option value = "Document">Document</mat-option>
+        <mat-option value = "Song">Song</mat-option>
+        <mat-option value = "Show">Show</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form [formGroup]="chirpForm">
+<!--    <div>-->
+<!--        <mat-form-field class = full-width >-->
+<!--          <mat-label>Document Language</mat-label>-->
+<!--          <mat-select formControlName="chirpOriginLanguage" [(value)]="chirp.fromLanguage">-->
+<!--            <mat-option *ngFor="let language of languages" [value] = language>-->
+<!--              {{language}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
+<!--          <mat-hint >The language that you'd like the word/phrase to be translated from.</mat-hint>-->
+<!--        </mat-form-field>-->
+<!--    </div>-->
+
+<!--    TARGET LANGUAGE -->
+
+    <div>
+        <mat-form-field class = full-width >
+          <mat-label >Target Language</mat-label>
+          <mat-select formControlName="chirpTerminalLanguage" [(value)]="chirp.toLanguage">
+            <mat-option *ngFor="let language of languages" [value] = language>
+              {{this.chirpService.getLanguage(language)}}
+            </mat-option>
+          </mat-select>
+          <mat-hint >The language that you'd like the word/phrase to be translated to.</mat-hint>
+        </mat-form-field>
+    </div>
+    <br>
+    <div *ngFor="let single of chirp.phrases; index as i">
+      "{{single.original}}":
+      "{{single.translated}}"
+      <button (click) = "removePhrase(i)">remove</button>
+    </div>
+
+    <mat-form-field style = width:90%; >
+      <textarea matInput [(ngModel)]="currentPhrase.original" formControlName="chirpPhrase" placeholder = "Phrase" ></textarea>
+    </mat-form-field>
+    <button [disabled] = "chirpForm.invalid" mat-raised-button style = "margin: 1%" (click) = addPhrase(currentPhrase.original) >Translate</button>
+
+  </form>
+  </div>
+  <br>
+  <button mat-raised-button style = "margin: 1%" (click)="addChirp()">Add</button>
+  <button mat-raised-button mat-dialog-close >Cancel</button>
+</mat-card>
+

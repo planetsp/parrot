@@ -1,0 +1,96 @@
+<div class="grid-container">
+
+  <h1 class="mat-h1">Dashboard</h1>
+  <div *ngIf="currentChirps.length === 0; else filter">You have no chirps!</div>
+
+  <ng-template #filter>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Filters
+        </mat-panel-title>
+        <mat-panel-description>
+          Filtering options for chirps
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <section>
+          <h4>Original Language</h4>
+          <mat-form-field>
+            <mat-label>Language</mat-label>
+            <mat-select [(value)]="fromLanguageFilter">
+              <mat-option *ngFor="let language of languages" [value] = language>
+                {{getLanguageName(language)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </section>
+        <section>
+          <h4>Translated Language</h4>
+          <mat-form-field>
+            <mat-label>Language</mat-label>
+            <mat-select [(value)]="toLanguageFilter">
+              <mat-option *ngFor="let language of languages" [value] = language>
+                {{getLanguageName(language)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </section>
+        <section>
+          <h4>Type</h4>
+          <mat-checkbox class="example-margin" [(ngModel)]="book">Book</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="article">Article</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="song">Song</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="show" >Show</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="document">Document</mat-checkbox>
+        </section>
+<!--        <section>-->
+<!--          <h4>From</h4>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput [matDatepicker]="picker" placeholder="Choose a date">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker #picker></mat-datepicker>-->
+<!--          </mat-form-field>-->
+<!--          <h4>Until</h4>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput [matDatepicker]="picker2" placeholder="Choose a date">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker #picker2></mat-datepicker>-->
+<!--          </mat-form-field>-->
+<!--        </section>-->
+
+      </div>
+      <button class="example-margin" mat-raised-button color="primary" (click)="applyFilters()">Apply</button>
+      <button class="example-margin"  mat-raised-button color="accent" (click)="clear()">Clear</button>
+    </mat-expansion-panel>
+  </ng-template>
+  <div style="padding-bottom: 20px"></div>
+  <mat-grid-list cols="3" rowHeight="200px">
+
+    <mat-grid-tile *ngFor="let chirp of filteredChirps; i as index">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <a [routerLink]="['/chirp/' + chirp.id]">{{chirp.title}}</a>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item (click) = "openRemoveChirpDialog(chirp.id)">Remove</button>
+            </mat-menu>
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{chirp.date}}
+          </mat-card-subtitle>
+          <mat-card-subtitle>
+            Translated Language: {{getLanguageName(chirp.toLanguage)}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          Original Language: {{getLanguageName(chirp.fromLanguage)}}
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <button mat-fab class="float" (click) = "openAddChirpDialog()">+</button>
+</div>

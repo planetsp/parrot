@@ -1,0 +1,15 @@
+<div *ngIf="user.user | async; then authenticated else login"></div>
+
+
+<ng-template #authenticated>
+  <app-main-nav></app-main-nav>
+</ng-template>
+
+<ng-template #login>
+  <mat-card>
+    User must login
+
+    <button mat-raised-button (click) = user.login()>Login With Google</button>
+  </mat-card>
+
+</ng-template>

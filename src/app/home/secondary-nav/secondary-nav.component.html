@@ -1,0 +1,16 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Books</a>
+      <a mat-list-item href="#">Chapters</a>
+      <a mat-list-item href="#">Notes</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-chirp-view></app-chirp-view>
+  </mat-sidenav-content>
+</mat-sidenav-container>
