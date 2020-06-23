@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyDa62AQpHvtQJdlEVEQu0ZXOL-Tz9vB7X0',
-    authDomain: 'parrot-237900.firebaseapp.com',
-    databaseURL: 'https://parrot-237900.firebaseio.com',
-    projectId: 'parrot-237900',
-    storageBucket: 'parrot-237900.appspot.com',
-    messagingSenderId: '432236595112'
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: ''
   },
-  googleTranslateKey: 'AIzaSyCYevkKsJZrgAzEmMGxA-ojk0Ck5tnRT58',
+  googleTranslateKey: '',
 };
 /*
  * For easier debugging in development mode, you can import the following file
